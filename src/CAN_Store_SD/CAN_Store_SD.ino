@@ -4,11 +4,13 @@
 #include <global.h>
 #include <mcp2515.h>
 #include <mcp2515_defs.h>
+#include <SD.h>
 
 //defines
 #define LED0 7
 #define LED1 8
 #define SD_PIN 9
+#define DATA_SIZE 100
 
 //global value
 File dataFile;
@@ -41,8 +43,8 @@ void setup() {
       delay(1000);
     }
   }
-  dataCount = 0
-  fileCount = 0
+  dataCount = 0;
+  fileCount = 0;
 }
 
 void loop() {
@@ -59,9 +61,9 @@ void loop() {
       }
       dataFile.print("ID: ");
       dataFile.print(message.id,HEX);
-      dataFile.print(", ");
-      dataFile.print("Data: ");
+      dataFile.print(", Length: ");
       dataFile.print(message.header.length,DEC);
+      dataFile.print(", Data: ");
       for(int i=0;i<message.header.length;i++) { 
         dataFile.print(message.data[i],HEX);
         dataFile.print(" ");
@@ -73,7 +75,7 @@ void loop() {
       if(dataCount > DATA_SIZE){
         dataFile.close();
         dataCount = 0;
-      }  
+      }
     }
   } 
 }
