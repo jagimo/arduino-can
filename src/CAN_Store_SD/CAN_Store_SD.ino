@@ -59,7 +59,9 @@ void loop() {
         fileCount++;
         digitalWrite(LED0, !digitalRead(LED0));
       }
-      dataFile.print("ID: ");
+      dataFile.print("TIME: ");
+      dataFile.print(millis());
+      dataFile.print(", ID: ");
       dataFile.print(message.id,HEX);
       dataFile.print(", Length: ");
       dataFile.print(message.header.length,DEC);
@@ -72,7 +74,7 @@ void loop() {
       dataCount++;
 
       // close file
-      if(dataCount > DATA_SIZE){
+      if(dataCount >= DATA_SIZE){
         dataFile.close();
         dataCount = 0;
       }
