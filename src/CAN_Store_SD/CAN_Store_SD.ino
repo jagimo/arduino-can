@@ -49,10 +49,13 @@ void loop() {
   tCAN message;
   if (mcp2515_check_message()) {
     if (mcp2515_get_message(&message)){
+      digitalWrite(LED1, !digitalRead(LED1));
+      
       //open new file
       if(dataCount == 0){
         dataFile = SD.open("file" + String(fileCount) + ".txt", FILE_WRITE);
         fileCount++;
+        digitalWrite(LED0, !digitalRead(LED0));
       }
       dataFile.print("ID: ");
       dataFile.print(message.id,HEX);
